@@ -1,3 +1,16 @@
 {
-  "mascotas": []
+  "mascotas": [,{
+  "id": "prueba-rin-2025-001",
+  "nombre": "RIN",
+  "foto": "https://www.altdoges.com/img/standard-schnauzer-thumbnail.png",
+  "especie": "Perro",
+  "raza": "Snouzer",
+  "edad": "3 años",
+  "dueño": "Juan Pablo Romero",
+  "telefono": "3881015186",
+  "direccion": "Centro",
+  "vacunas": "Todas las vacunas al 20 nov 2025",
+  "alergias": "Ninguna",
+  "notas": "Es muy cariñosa"
+}]
 }
