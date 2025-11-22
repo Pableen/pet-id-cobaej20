@@ -1,0 +1,9 @@
+{
+  "name": "PET-ID COBAEJ 20",
+  "short_name": "PET-ID",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#001f3f",
+  "theme_color": "#001f3f",
+  "icons": []
+}
