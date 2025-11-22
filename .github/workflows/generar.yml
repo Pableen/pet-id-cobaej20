@@ -1,0 +1,44 @@
+name: Generar Páginas Mascotas
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Instalar herramientas
+        run: sudo apt-get install -y jq
+      
+      - name: Generar páginas
+        run: |
+          # Crear carpeta
+          mkdir -p mascotas
+          
+          # Leer cada mascota del JSON
+          jq -c '.mascotas[]' data/mascotas.json | while read mascota; do
+            ID=$(echo $mascota | jq -r '.id')
+            echo "Generando página para: $ID"
+            
+            # Crear carpeta de la mascota
+            mkdir -p "mascotas/$ID"
+            
+            # Copiar plantilla y reemplazar variables
+            cp mascota.html "mascotas/$ID/index.html"
+            
+            # Reemplazar cada campo (usando ## para evitar conflictos)
+            echo $mascota | jq -r 'to_entries[] | "##\(.key | ascii_upcase)##\(.value)"' | while IFS='##' read -r key value; do
+              sed -i "s|{{${key^^}}}|${value}|g" "mascotas/$ID/index.html"
+            done
+          done
+          
+      - name: Commit automático
+        run: |
+          git config --local user.email "alumno@cobaej20.edu.mx"
+          git config --local user.name "Sistema PET-ID"
+          git add mascotas/
+          git diff --quiet && git diff --staged --quiet || git commit -m "🐾 Nuevas mascotas agregadas"
+          git push
